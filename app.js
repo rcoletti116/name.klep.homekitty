@@ -7,6 +7,7 @@ const Constants                     = require('./constants');
 const DeviceMapper                  = require('./lib/device-mapper');
 const { HomeyAPI }                  = require('./modules/homey-api');
 const {
+  
   Bridge, Service, Characteristic, Categories,Accessory,AdaptiveLightingController, AccessoryEventTypes, uuid } = require('hap-nodejs');
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
