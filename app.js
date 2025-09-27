@@ -8,7 +8,7 @@ const DeviceMapper                  = require('./lib/device-mapper');
 const { HomeyAPI }                  = require('./modules/homey-api');
 const {
   Bridge, Service, Characteristic,
-  Accessory, AccessoryEventTypes, uuid } = require('./modules/hap-nodejs');
+  Accessory,AdaptiveLightingController, AccessoryEventTypes, uuid } = require('hap-nodejs');
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -42,6 +42,13 @@ module.exports = class HomeKitty extends Homey.App {
 
     // create persistence directory
     await this.initializePersistence();
+
+// *** HAP ***
+const hapStoragePath = pathJoin(this.#persistDir, 'hap-storage');
+require('hap-nodejs').HAPStorage.setCustomStoragePath(hapStoragePath);
+this.log(`HAP storage path set to ${ hapStoragePath }`);
+// *** End block ***
+
 
     // perform a reset
     if (Homey.env.HOMEKITTY_RESET === 'true') {
